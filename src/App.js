@@ -7,15 +7,15 @@ function App() {
   const [repositories, setRepositories] = useState([]);
 
 
-  useEffect(async () => {
-    const res = await api.get('/repositories');
-
-    setRepositories(res.data);
+  useEffect(() => {
+    api.get('repositories').then(res => setRepositories(res.data));
   }, [])
 
   async function handleAddRepository() {
-    const res = await api.post('/repositories', {
-      title: `Novo repositorio ${Date.now()}`
+    const res = await api.post('repositories', {
+      title: `Novo repositorio ${Date.now()}`,
+      url: 'http://teste',
+      techs: ['React', 'Js']
     })
 
     setRepositories([...repositories, res.data])
